@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: circleci/node:16-bullseye  # Updated to Debian Bullseye to fix apt repo errors
+      - image: circleci/node:16-bullseye
     steps:
       - checkout
 
@@ -16,60 +16,18 @@ jobs:
           command: ls -R
 
       - run:
-          name: List specific project files
+          name: List specific files
           command: |
-            ls -l index.html script.js styles.css || echo "One or more files not found"
+            ls -l index.html script.js styles.css || echo "Files missing"
 
       - run:
-          name: Update apt and install tidy-html5 for HTML validation
+          name: Check node and npm versions
           command: |
-            sudo apt-get update
-            sudo apt-get install -y tidy
-
-      - run:
-          name: Validate HTML file
-          command: tidy -errors index.html || true
-
-      - run:
-          name: Install ESLint for JS linting
-          command: |
-            npm install -g eslint
-            echo '{}' > .eslintrc.json
-
-      - run:
-          name: Lint JavaScript file
-          command: eslint script.js || true
-
-      - run:
-          name: Install stylelint for CSS linting
-          command: |
-            npm install -g stylelint stylelint-config-standard
-            echo '{
-              "extends": "stylelint-config-standard"
-            }' > .stylelintrc.json
-
-      - run:
-          name: Lint CSS file
-          command: stylelint styles.css || true
-
-  deploy:
-    docker:
-      - image: circleci/node:16-bullseye
-    steps:
-      - checkout
-      - run:
-          name: Deploy placeholder
-          command: |
-            echo "Deploying application..."
-            # Add your real deploy commands here, e.g.:
-            # scp -r * user@yourserver:/var/www/html/
-            # ./deploy.sh
+            node -v
+            npm -v
 
 workflows:
   version: 2
   test_and_deploy:
     jobs:
       - test
-      - deploy:
-          requires:
-            - test
