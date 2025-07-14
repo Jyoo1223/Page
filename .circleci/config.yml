@@ -3,32 +3,43 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: circleci/node:16
+      - image: circleci/node:16-bullseye  # Updated to Debian Bullseye to fix apt repo errors
     steps:
       - checkout
+
       - run:
-          name: Check if files exist
+          name: Show current directory
+          command: pwd
+
+      - run:
+          name: List all files recursively
+          command: ls -R
+
+      - run:
+          name: List specific project files
           command: |
-            echo "Listing project files:"
-            ls -l index.html script.js styles.css
+            ls -l index.html script.js styles.css || echo "One or more files not found"
+
       - run:
-          name: Install tidy-html5 for HTML validation
+          name: Update apt and install tidy-html5 for HTML validation
           command: |
             sudo apt-get update
             sudo apt-get install -y tidy
+
       - run:
           name: Validate HTML file
-          command: |
-            tidy -errors index.html || true
+          command: tidy -errors index.html || true
+
       - run:
           name: Install ESLint for JS linting
           command: |
             npm install -g eslint
             echo '{}' > .eslintrc.json
+
       - run:
           name: Lint JavaScript file
-          command: |
-            eslint script.js || true
+          command: eslint script.js || true
+
       - run:
           name: Install stylelint for CSS linting
           command: |
@@ -36,26 +47,27 @@ jobs:
             echo '{
               "extends": "stylelint-config-standard"
             }' > .stylelintrc.json
+
       - run:
           name: Lint CSS file
-          command: |
-            stylelint styles.css || true
+          command: stylelint styles.css || true
 
   deploy:
     docker:
-      - image: circleci/node:16
+      - image: circleci/node:16-bullseye
     steps:
       - checkout
       - run:
-          name: Deploy application
+          name: Deploy placeholder
           command: |
             echo "Deploying application..."
-            # Add your real deploy commands here, for example:
+            # Add your real deploy commands here, e.g.:
             # scp -r * user@yourserver:/var/www/html/
             # ./deploy.sh
 
 workflows:
-  build-test-and-deploy:
+  version: 2
+  test_and_deploy:
     jobs:
       - test
       - deploy:
