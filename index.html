@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jyothi Reddy | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>Jyothi Reddy</h2>
+    <nav>
+      <ul>
+        <li><a href="#skills" class="nav-link active">Skills</a></li>
+        <li><a href="#files" class="nav-link">Files</a></li>
+        <li><a href="#todo" class="nav-link">To-Do List</a></li>
+        <li><a href="#expenses" class="nav-link">Expenses</a></li>
+        <li><a href="#books" class="nav-link">Bookshelf</a></li>
+        <li><a href="#myself" class="nav-link">Myself</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <!-- Skills Section -->
+    <section id="skills" class="main-section">
+      <h2>My Superpowers</h2>
+      <div class="skills-cards">
+        <div class="skill-card" data-skill="html">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+          <span>HTML5</span>
+        </div>
+        <div class="skill-card" data-skill="css">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+          <span>CSS3</span>
+        </div>
+        <div class="skill-card" data-skill="js">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+          <span>JavaScript</span>
+        </div>
+        <div class="skill-card" data-skill="git">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+          <span>Git</span>
+        </div>
+        <div class="skill-card" data-skill="automation">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Automation" />
+          <span>Automation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skill Modal -->
+    <div id="skill-modal-bg" class="modal-bg hidden"></div>
+    <div id="skill-modal" class="modal hidden">
+      <div class="modal-content" id="modal-content"></div>
+      <button class="close-modal" id="close-modal">&times;</button>
+    </div>
+
+    <!-- Files Section -->
+    <section id="files" class="main-section hidden">
+      <h2>Upload Your Folder</h2>
+      <input type="file" id="folder-input" webkitdirectory directory multiple style="margin-bottom:1rem;" />
+      <ul id="uploaded-files"></ul>
+    </section>
+
+    <!-- To-Do Section -->
+    <section id="todo" class="main-section hidden">
+      <h2>To-Do List</h2>
+      <div class="todo-container">
+        <input type="text" id="todo-input" placeholder="Add a task..." />
+        <button id="add-todo">Add</button>
+        <ul id="todo-list"></ul>
+      </div>
+    </section>
+
+    <!-- Expenses Section -->
+    <section id="expenses" class="main-section hidden">
+      <h2>Expenses</h2>
+      <form id="expense-form" autocomplete="off">
+        <input type="text" id="expense-desc" placeholder="Description" required />
+        <input type="number" id="expense-amount" placeholder="Amount" required />
+        <button type="submit">Add</button>
+      </form>
+      <table id="expense-table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount (₹)</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <canvas id="expensesChart" width="400" height="220"></canvas>
+    </section>
+
+    <!-- Bookshelf Section -->
+    <section id="books" class="main-section hidden">
+      <h2>Bookshelf</h2>
+      <form id="book-form" autocomplete="off">
+        <input type="text" id="book-title" placeholder="Book Title" required />
+        <input type="text" id="book-author" placeholder="Author" required />
+        <input type="url" id="book-img" placeholder="Image URL" />
+        <button type="submit">Add Book</button>
+      </form>
+      <div class="bookshelf-grid" id="bookshelf-grid"></div>
+    </section>
+
+    <!-- Myself Section -->
+    <section id="myself" class="main-section hidden">
+      <h2>Myself</h2>
+      <h3>Content Addition</h3>
+      <textarea id="personal-notes" placeholder="Write your thoughts here..."></textarea>
+      <button id="save-notes">Save Notes</button>
+      <p id="notes-status"></p>
+      <div class="creative-footer" style="margin-top: 2rem;">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Creative" />
+        <div>
+          <p>
+            <strong>Jyothi Reddy</strong><br />
+            <span>Web Developer | Automation Enthusiast | Lifelong Learner</span>
+          </p>
+          <p>Let's connect and build something amazing together!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

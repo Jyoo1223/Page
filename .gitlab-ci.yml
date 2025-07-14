@@ -1,0 +1,8 @@
+stages:
+  -test
+run_script:
+  stage:test
+  image:alpine:latest
+  script:
+    -echo "Testing HTML,CSS and JS Files"
+    -ls -l index.html script.js styles.css
